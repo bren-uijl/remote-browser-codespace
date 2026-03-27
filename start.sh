@@ -24,12 +24,14 @@ sudo apt-get install -y \
     libasound2t64 \
     libgbm1
 
-echo "==> Chromium installeren..."
-if ! command -v chromium >/dev/null 2>&1 && ! command -v chromium-browser >/dev/null 2>&1; then
-    sudo apt-get install -y chromium || sudo apt-get install -y chromium-browser
+echo "==> Google Chrome installeren..."
+if ! command -v google-chrome-stable >/dev/null 2>&1 && ! command -v google-chrome >/dev/null 2>&1; then
+    wget -q -O /tmp/chrome.deb https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+    sudo apt-get install -y /tmp/chrome.deb
+    rm /tmp/chrome.deb
 fi
 
-CHROME_BIN="$(command -v chromium || command -v chromium-browser)"
+CHROME_BIN="$(command -v google-chrome-stable || command -v google-chrome)"
 
 echo "==> Oude processen opruimen..."
 pkill -f "Xvfb :99" || true
@@ -39,6 +41,7 @@ pkill -f websockify || true
 pkill -f novnc_proxy || true
 pkill -f chromium || true
 pkill -f chromium-browser || true
+pkill -f google-chrome || true
 
 echo "==> Virtueel scherm starten..."
 nohup Xvfb :99 -screen 0 1280x720x24 >/tmp/xvfb.log 2>&1 &
