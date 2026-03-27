@@ -61,4 +61,4 @@ Als de browser vastloopt of je wil hem opnieuw starten:
 
 ---
 
-*Gefixt en gedocumenteerd door **Vink** 🦉*
+*Gefixt en gedocumenteerd door **Vink🦉***
