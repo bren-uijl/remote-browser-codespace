@@ -21,7 +21,7 @@ sudo apt-get install -y \
     libnss3 \
     libatk-bridge2.0-0 \
     libxss1 \
-    libasound2 \
+    libasound2t64 \
     libgbm1
 
 echo "==> Chromium installeren..."
