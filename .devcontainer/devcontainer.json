@@ -8,5 +8,6 @@
       "visibility": "public"
     }
   },
-  "postCreateCommand": "chmod +x start.sh"
+  "postCreateCommand": "chmod +x start.sh",
+  "postStartCommand": "./start.sh"
 }
