@@ -52,12 +52,12 @@ echo "==> Starting noVNC on port 6080..."
 if [ -f /usr/share/novnc/utils/novnc_proxy ]; then
     nohup /usr/share/novnc/utils/novnc_proxy \
         --vnc localhost:5900 \
-        --listen 6080 \
+        --listen 0.0.0.0:6080 \
         >/tmp/novnc.log 2>&1 &
 else
     nohup websockify \
         --web /usr/share/novnc/ \
-        6080 \
+        0.0.0.0:6080 \
         localhost:5900 \
         >/tmp/novnc.log 2>&1 &
 fi
