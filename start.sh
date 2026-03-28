@@ -12,17 +12,20 @@ sudo apt-get install -y \
     x11vnc \
     novnc \
     websockify \
-    fluxbox \
+    xfce4 \
+    xfce4-terminal \
+    xfce4-goodies \
     xterm \
     wget \
     curl \
     ca-certificates \
     fonts-liberation \
     libnss3 \
-    libatk-bridge2.0-0 \
+    libatk-bridge2.0-0t64 \
     libxss1 \
     libasound2t64 \
-    libgbm1
+    libgbm1 \
+    dbus-x11
 
 echo "==> Google Chrome installeren..."
 if ! command -v google-chrome-stable >/dev/null 2>&1 && ! command -v google-chrome >/dev/null 2>&1; then
@@ -36,32 +39,33 @@ CHROME_BIN="$(command -v google-chrome-stable || command -v google-chrome)"
 echo "==> Oude processen opruimen..."
 pkill -f "Xvfb :99" || true
 pkill -f x11vnc || true
-pkill -f fluxbox || true
+pkill -f xfce4-session || true
+pkill -f xfwm4 || true
 pkill -f websockify || true
 pkill -f novnc_proxy || true
-pkill -f chromium || true
-pkill -f chromium-browser || true
 pkill -f google-chrome || true
 
+sleep 1
+
 echo "==> Virtueel scherm starten..."
-nohup Xvfb :99 -screen 0 1280x720x24 >/tmp/xvfb.log 2>&1 &
+nohup Xvfb :99 -screen 0 1280x800x24 >/tmp/xvfb.log 2>&1 &
 
 sleep 2
 
-echo "==> Window manager starten..."
-nohup fluxbox >/tmp/fluxbox.log 2>&1 &
+echo "==> XFCE desktop starten..."
+nohup startxfce4 >/tmp/xfce.log 2>&1 &
 
-sleep 2
+sleep 5
 
-echo "==> Chromium starten..."
+echo "==> Google Chrome starten..."
 nohup "$CHROME_BIN" \
     --no-sandbox \
     --disable-dev-shm-usage \
     --disable-gpu \
-    --window-size=1280,720 \
+    --window-size=1280,800 \
     --start-maximized \
     "https://example.com" \
-    >/tmp/chromium.log 2>&1 &
+    >/tmp/chrome.log 2>&1 &
 
 sleep 3
 
@@ -93,15 +97,18 @@ fi
 sleep 2
 
 echo
-echo "Klaar."
-echo "Open in Codespaces het PORTS-tabblad en open poort 6080."
+echo "=============================="
+echo " Vink🦉 — alles draait!"
+echo "=============================="
+echo " Open het PORTS tabblad"
+echo " en klik op poort 6080"
+echo "=============================="
 echo
 echo "Logs:"
 echo "  /tmp/xvfb.log"
-echo "  /tmp/fluxbox.log"
-echo "  /tmp/chromium.log"
+echo "  /tmp/xfce.log"
+echo "  /tmp/chrome.log"
 echo "  /tmp/x11vnc.log"
 echo "  /tmp/novnc.log"
 
-# Handig: proces levend houden in de terminal
 wait
