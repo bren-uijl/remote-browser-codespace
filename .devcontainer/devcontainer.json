@@ -1,6 +1,8 @@
 {
   "name": "Remote Browser",
-  "image": "mcr.microsoft.com/devcontainers/base:ubuntu",
+  "build": {
+    "dockerfile": "Dockerfile"
+  },
   "forwardPorts": [6080],
   "portsAttributes": {
     "6080": {

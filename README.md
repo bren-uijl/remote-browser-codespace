@@ -1,44 +1,44 @@
 # 🦉 Remote Browser Codespace
 
-Een volledige **Ubuntu XFCE desktop** met Google Chrome — in je browser, via GitHub Codespaces en noVNC. Geen installatie nodig.
+A full **Ubuntu XFCE desktop** with Google Chrome — running inside your browser via GitHub Codespaces and noVNC. No installation required.
 
 [![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/bren-uijl/remote-browser-codespace)
 
 ---
 
-## 🚀 Snel starten
+## 🚀 Quick start
 
-1. Klik op de knop hierboven — **Open in GitHub Codespaces**
-2. Wacht tot de container klaar is (~3 minuten de eerste keer)
-3. Ga naar het **Ports** tabblad in VS Code of de Codespace interface
-4. Klik op de link bij poort **6080** → de volledige Ubuntu desktop opent in je browser
+1. Click the button above — **Open in GitHub Codespaces**
+2. Wait for the container to build (~3 minutes the first time, fast after that)
+3. Go to the **Ports** tab in VS Code or the Codespace interface
+4. Click the link next to port **6080** → the full Ubuntu desktop opens in your browser
 
-> 💡 Poort 6080 is ingesteld als `public`, dus je kunt de link ook delen.
+> 💡 Port 6080 is set to `public`, so you can share the link with others.
 
 ---
 
-## 🧩 Wat zit erin?
+## 🧩 What's included?
 
-| Component | Functie |
+| Component | Purpose |
 |-----------|---------|
-| `Xvfb` | Virtueel scherm (geen fysieke monitor nodig) |
-| `XFCE4` | Volledige Ubuntu desktop omgeving |
-| `xfce4-goodies` | Extra apps: teksteditor, screenshot tool, etc. |
-| `Google Chrome` | De browser die je bedient |
-| `x11vnc` | VNC server op poort 5900 |
-| `noVNC` | VNC → browser bridge op poort **6080** |
+| `Xvfb` | Virtual display (no physical monitor needed) |
+| `XFCE4` | Full Ubuntu desktop environment |
+| `xfce4-goodies` | Extra apps: text editor, screenshot tool, etc. |
+| `Google Chrome` | The browser you control |
+| `x11vnc` | VNC server on port 5900 |
+| `noVNC` | VNC → browser bridge on port **6080** |
 
 ---
 
-## 🛠️ Handmatig herstarten
+## 🛠️ Restart manually
 
-Als de desktop vastloopt of je wil hem opnieuw starten:
+If the desktop freezes or you want to restart:
 
 ```bash
 ./start.sh
 ```
 
-Of alles eerst stoppen:
+Or kill everything first:
 
 ```bash
 pkill -f "Xvfb|x11vnc|xfce|websockify|novnc|chrome" ; ./start.sh
@@ -46,27 +46,28 @@ pkill -f "Xvfb|x11vnc|xfce|websockify|novnc|chrome" ; ./start.sh
 
 ---
 
-## 📁 Structuur
+## 📁 Structure
 
 ```
 .
 ├── .devcontainer/
-│   └── devcontainer.json   # Codespace configuratie
-├── start.sh                # Start XFCE, Chrome, noVNC
+│   ├── devcontainer.json   # Codespace configuration
+│   └── Dockerfile          # Pre-installs everything (fast startup)
+├── start.sh                # Starts XFCE, Chrome and noVNC
 └── README.md
 ```
 
 ---
 
-## 🪲 Problemen?
+## 🪲 Troubleshooting
 
-| Probleem | Oplossing |
-|----------|-----------|
-| 502 Bad Gateway op poort 6080 | Voer `./start.sh` uit in de terminal |
-| Scherm blijft zwart | Wacht 5 seconden en refresh |
-| Chrome start niet | Typ `google-chrome --no-sandbox` in de XFCE terminal |
-| Codespace start niet opnieuw op | Doe een **Rebuild Container** via het Command Palette |
+| Problem | Solution |
+|---------|----------|
+| 502 Bad Gateway on port 6080 | Run `./start.sh` in the terminal |
+| Black screen | Wait 5 seconds and refresh |
+| Chrome won't start | Type `google-chrome --no-sandbox` in the XFCE terminal |
+| Codespace doesn't restart properly | Do a **Rebuild Container** via the Command Palette |
 
 ---
 
-*Gefixt en gedocumenteerd door **Vink🦉***
+*Fixed and documented by **Vink🦉***
