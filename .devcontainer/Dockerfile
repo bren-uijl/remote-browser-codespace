@@ -29,3 +29,10 @@ RUN wget -q -O /tmp/chrome.deb https://dl.google.com/linux/direct/google-chrome-
     && apt-get install -y /tmp/chrome.deb \
     && rm /tmp/chrome.deb \
     && rm -rf /var/lib/apt/lists/*
+
+# Copy repo files into the image
+WORKDIR /app
+COPY . .
+RUN chmod +x start.sh
+
+CMD ["/bin/bash", "start.sh"]
