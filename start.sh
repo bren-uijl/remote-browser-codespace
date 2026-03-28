@@ -49,15 +49,23 @@ nohup x11vnc \
 sleep 2
 
 echo "==> Starting noVNC on port 6080..."
+# On Render, listen on 0.0.0.0 so the port is reachable externally
+# On Codespaces, localhost is fine
+if [ -n "$RENDER" ]; then
+    LISTEN="0.0.0.0:6080"
+else
+    LISTEN="6080"
+fi
+
 if [ -f /usr/share/novnc/utils/novnc_proxy ]; then
     nohup /usr/share/novnc/utils/novnc_proxy \
         --vnc localhost:5900 \
-        --listen 0.0.0.0:6080 \
+        --listen $LISTEN \
         >/tmp/novnc.log 2>&1 &
 else
     nohup websockify \
         --web /usr/share/novnc/ \
-        0.0.0.0:6080 \
+        $LISTEN \
         localhost:5900 \
         >/tmp/novnc.log 2>&1 &
 fi
